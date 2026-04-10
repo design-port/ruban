@@ -139,7 +139,7 @@
         <div class="text-center w-full max-w-4xl mx-auto z-20 flex flex-col items-center">
             
             <!-- メインビジュアル（いただいた画像を大きく配置） -->
-            <div class="w-full px-4 md:px-12 mb-12 reveal">
+            <div class="w-full px-4 md:px-12 mb-6 reveal">
                 <!-- 実際の画像 -->
                 <img src="https://raw.githubusercontent.com/design-port/ruban/main/assets/rubanlogo2.webp" alt="Ruban AROMA & CRYSTAL HEALING" class="w-full h-auto object-contain" onerror="this.style.display='none';">
                 
@@ -149,7 +149,8 @@
                 </div>
             </div>
             
-            <h2 class="font-serif text-xl md:text-3xl text-brand-darkGreen leading-loose md:leading-loose tracking-widest mb-8 reveal delay-100">
+            <!-- 余白を狭くし、1文字分右にずらして視覚的な中央を調整 -->
+            <h2 class="font-serif text-xl md:text-3xl text-brand-darkGreen leading-loose md:leading-loose tracking-widest mb-4 reveal delay-100 translate-x-[1em]">
                 石の静けさと、香りの導き。<br>
                 本来のあなたへ還る場所。
             </h2>
@@ -167,7 +168,8 @@
     </section>
 
     <!-- Concept Section -->
-    <section id="concept" class="py-32 px-6 relative z-10 bg-brand-base">
+    <!-- 写真にかぶるくらい（50%付近）からミント色のグラデーションを開始 -->
+    <section id="concept" class="pt-32 pb-24 px-6 relative z-10 bg-gradient-to-b from-brand-base from-[50%] to-brand-mint/10">
         <div class="max-w-4xl mx-auto text-center">
             <h2 class="font-serif text-3xl md:text-4xl text-brand-gold mb-12 reveal">Crystal & Aroma Healing</h2>
             <div class="space-y-8 text-base md:text-lg leading-loose tracking-wider reveal delay-100">
@@ -189,17 +191,20 @@
     </section>
 
     <!-- About Healing Section -->
-    <section id="about" class="py-24 px-6 bg-brand-mint/10 backdrop-blur-sm border-y border-brand-mint/20 relative overflow-hidden">
+    <!-- border-yからborder-bに変更し、上のセクションからのグラデーションを自然に繋げる -->
+    <section id="about" class="py-24 px-6 bg-brand-mint/10 backdrop-blur-sm border-b border-brand-mint/20 relative overflow-hidden">
         <div class="max-w-4xl mx-auto relative z-10">
             <div class="grid md:grid-cols-2 gap-16 md:gap-24 items-start">
                 
                 <!-- 石について -->
                 <div class="reveal text-center md:text-left">
-                    <!-- アクセントイラスト（SVGから画像へ変更） -->
-                    <div class="mb-8 flex justify-center md:justify-start opacity-80">
-                        <img src="https://raw.githubusercontent.com/design-port/ruban/main/assets/crystal.webp" alt="Crystal Icon" class="w-64 h-64 object-contain">
+                    <!-- アクセントイラストとサブタイトルをグループ化し中央揃え・隙間を狭く調整 -->
+                    <div class="inline-flex flex-col items-center mb-6">
+                        <div class="mb-2 opacity-80">
+                            <img src="https://raw.githubusercontent.com/design-port/ruban/main/assets/crystal.webp" alt="Crystal Icon" class="w-64 h-64 object-contain">
+                        </div>
+                        <span class="text-brand-mint font-medium text-sm tracking-widest uppercase block">Stone & Healing</span>
                     </div>
-                    <span class="text-brand-mint font-medium text-sm tracking-widest uppercase mb-4 block">Stone & Healing</span>
                     <h3 class="font-serif text-2xl md:text-3xl mb-8 text-brand-darkGreen">石とヒーリング</h3>
                     <p class="leading-loose mb-6 text-text-main">
                         地球が長い時間をかけて生み出した、エネルギーの結晶。<br>
@@ -218,11 +223,13 @@
 
                 <!-- アロマについて -->
                 <div class="reveal delay-100 text-center md:text-left mt-12 md:mt-0">
-                    <!-- アクセントイラスト（SVGから画像へ変更） -->
-                    <div class="mb-8 flex justify-center md:justify-start opacity-90 hover:scale-105 transition-transform">
-                        <img src="https://raw.githubusercontent.com/design-port/ruban/main/assets/aroma.webp" alt="Aroma Icon" class="w-64 h-64 object-contain drop-shadow-sm">
+                    <!-- アクセントイラストとサブタイトルをグループ化し中央揃え・隙間を狭く調整 -->
+                    <div class="inline-flex flex-col items-center mb-6 hover:scale-105 transition-transform">
+                        <div class="mb-2 opacity-90">
+                            <img src="https://raw.githubusercontent.com/design-port/ruban/main/assets/aroma.webp" alt="Aroma Icon" class="w-64 h-64 object-contain drop-shadow-sm">
+                        </div>
+                        <span class="text-brand-purple font-medium text-sm tracking-widest uppercase block">Aroma & Vibration</span>
                     </div>
-                    <span class="text-brand-purple font-medium text-sm tracking-widest uppercase mb-4 block">Aroma & Vibration</span>
                     <h3 class="font-serif text-2xl md:text-3xl mb-8 text-brand-darkGreen">アロマと波動</h3>
                     <p class="leading-loose mb-6 text-text-main">
                         植物から抽出された精油のひとしずく。<br>
