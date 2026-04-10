@@ -131,8 +131,8 @@
     </header>
 
     <!-- Hero Section -->
-    <!-- 65%の位置までミント色をキープし、その後ゆっくり白へグラデーション -->
-    <section class="relative min-h-screen flex items-center justify-center pt-20 px-6 bg-gradient-to-b from-brand-mint from-[65%] to-brand-base overflow-hidden z-10">
+    <!-- 65%の位置までミント色をキープし、その後ゆっくり白へグラデーション。テキスト被り防止のため pb-24 を追加 -->
+    <section class="relative min-h-screen flex items-center justify-center pt-20 pb-24 px-6 bg-gradient-to-b from-brand-mint from-[65%] to-brand-base overflow-hidden z-10">
         <!-- FV用のさりげない光の装飾 -->
         <div class="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent pointer-events-none"></div>
 
@@ -140,8 +140,8 @@
             
             <!-- メインビジュアル（いただいた画像を大きく配置） -->
             <div class="w-full px-4 md:px-12 mb-12 reveal">
-                <!-- 実際の画像（角を少し丸め、ほんのり影をつけて馴染ませる） -->
-                <img src="https://raw.githubusercontent.com/design-port/ruban/main/assets/rubanlogo2.webp" alt="Ruban AROMA & CRYSTAL HEALING" class="w-full h-auto object-contain rounded-2xl shadow-[0_10px_40px_rgba(27,59,54,0.08)] mix-blend-multiply bg-blend-multiply" onerror="this.style.display='none';">
+                <!-- 実際の画像 -->
+                <img src="https://raw.githubusercontent.com/design-port/ruban/main/assets/rubanlogo2.webp" alt="Ruban AROMA & CRYSTAL HEALING" class="w-full h-auto object-contain" onerror="this.style.display='none';">
                 
                 <!-- プレビュー等で画像がない場合のフォールバックテキスト -->
                 <div class="hidden">
@@ -159,7 +159,8 @@
         </div>
         
         <!-- Scroll indicator -->
-        <div class="absolute bottom-16 left-1/2 transform -translate-x-1/2 flex flex-col items-center reveal delay-300 z-20">
+        <!-- idを追加し、位置を少し下げ（bottom-8）、フェードアニメーションを設定 -->
+        <div id="scroll-indicator" class="absolute bottom-8 md:bottom-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center reveal delay-300 z-20 transition-opacity duration-500">
             <span class="text-[10px] tracking-widest text-brand-darkGreen mb-2 uppercase">Scroll</span>
             <div class="w-[1px] h-12 bg-gradient-to-b from-brand-darkGreen/40 to-transparent"></div>
         </div>
@@ -196,7 +197,7 @@
                 <div class="reveal text-center md:text-left">
                     <!-- アクセントイラスト（SVGから画像へ変更） -->
                     <div class="mb-8 flex justify-center md:justify-start opacity-80">
-                        <img src="https://raw.githubusercontent.com/design-port/ruban/main/assets/crystal.webp" alt="Crystal Icon" class="w-32 h-32 object-contain">
+                        <img src="https://raw.githubusercontent.com/design-port/ruban/main/assets/crystal.webp" alt="Crystal Icon" class="w-64 h-64 object-contain">
                     </div>
                     <span class="text-brand-mint font-medium text-sm tracking-widest uppercase mb-4 block">Stone & Healing</span>
                     <h3 class="font-serif text-2xl md:text-3xl mb-8 text-brand-darkGreen">石とヒーリング</h3>
@@ -219,7 +220,7 @@
                 <div class="reveal delay-100 text-center md:text-left mt-12 md:mt-0">
                     <!-- アクセントイラスト（SVGから画像へ変更） -->
                     <div class="mb-8 flex justify-center md:justify-start opacity-90 hover:scale-105 transition-transform">
-                        <img src="https://raw.githubusercontent.com/design-port/ruban/main/assets/aroma.webp" alt="Aroma Icon" class="w-32 h-32 object-contain drop-shadow-sm">
+                        <img src="https://raw.githubusercontent.com/design-port/ruban/main/assets/aroma.webp" alt="Aroma Icon" class="w-64 h-64 object-contain drop-shadow-sm">
                     </div>
                     <span class="text-brand-purple font-medium text-sm tracking-widest uppercase mb-4 block">Aroma & Vibration</span>
                     <h3 class="font-serif text-2xl md:text-3xl mb-8 text-brand-darkGreen">アロマと波動</h3>
@@ -322,14 +323,14 @@
                     <img src="https://raw.githubusercontent.com/design-port/ruban/main/assets/yuka.webp" alt="Therapist Profile" class="absolute inset-0 w-full h-full object-cover rounded-full z-10 shadow-sm border border-brand-mint/30 mix-blend-multiply" onerror="this.style.opacity='0';">
                 </div>
                 <div>
-                    <span class="text-brand-purple text-xs tracking-widest uppercase mb-1 block font-medium">Therapist</span>
+                    <span class="text-brand-purple text-xs tracking-widest uppercase mb-1 block font-medium">Crystal healer</span>
                     <h2 class="font-serif text-2xl text-brand-darkGreen">ご挨拶</h2>
                 </div>
             </div>
             
             <div class="space-y-6 text-sm md:text-base leading-loose text-text-light">
                 <p>
-                    はじめまして。Rubanでお待ちしております。（※ここにお名前）です。
+                    はじめまして。Rubanでお待ちしております。由佳です。
                 </p>
                 <p>
                     日々の忙しさの中で、ふと立ち止まり、自分の内側とつながる時間。そんな余白のような場所を作りたくて、このサロンをオープンしました。
@@ -433,6 +434,20 @@
 
             const revealElements = document.querySelectorAll('.reveal');
             revealElements.forEach(el => observer.observe(el));
+
+            // スクロールインジケーターの制御（スクロール時にフェードアウト）
+            const scrollIndicator = document.getElementById('scroll-indicator');
+            if (scrollIndicator) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 50) {
+                        scrollIndicator.style.opacity = '0';
+                        scrollIndicator.style.pointerEvents = 'none';
+                    } else {
+                        scrollIndicator.style.opacity = '1';
+                        scrollIndicator.style.pointerEvents = 'auto';
+                    }
+                }, { passive: true });
+            }
         });
     </script>
 </body>
