@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruban | クリスタルとアロマのヒーリングサロン</title>
+    
+    <!-- Google Fonts: Noto Serif JP (明朝体), Noto Sans JP (ゴシック体) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500&family=Noto+Serif+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            darkGreen: '#1b3b36', /* ロゴの深いグリーン */
+                            mint: '#bccfbb',      /* 指定された背景色（FV用） */
+                            purple: '#e5d9e5',    /* ピンク寄りのペールパープル */
+                            gold: '#c2a878',      /* 上品なゴールド */
+                            base: '#fcfaf9',      /* 温かみのある背景白（FV以降） */
+                        },
+                        text: {
+                            main: '#1b3b36',      /* 濃いグリーンをメインテキストに */
+                            light: '#5c736e',     /* サブテキスト用の薄いグリーン系グレー */
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Noto Serif JP"', 'serif'],
+                        sans: ['"Noto Sans JP"', 'sans-serif'],
+                    },
+                    spacing: {
+                        '128': '32rem',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* ベース設定 */
+        body {
+            color: #1b3b36;
+            background-color: #fcfaf9; /* 基本の背景は白ベース */
+        }
+
+        /* スクロールアニメーション (Reveal) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-100 { transition-delay: 0.1s; }
+        .delay-200 { transition-delay: 0.2s; }
+        .delay-300 { transition-delay: 0.3s; }
+
+        /* 背景のオーロラエフェクト（FV以降の白背景エリアでさりげなく光るように調整。紫の存在感をUP） */
+        .aurora-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+            background: radial-gradient(circle at 15% 70%, rgba(188, 207, 187, 0.2), transparent 50%),
+                        radial-gradient(circle at 85% 40%, rgba(229, 217, 229, 0.5), transparent 50%);
+        }
+
+        /* 月の透かしモチーフ */
+        .moon-motif {
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            box-shadow: inset -20px 0px 0 0 rgba(194, 168, 120, 0.08); /* ゴールドの薄い影で三日月を表現 */
+            top: 20%;
+            right: -100px;
+            pointer-events: none;
+            z-index: -1;
+            transform: rotate(-20deg);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal {
+                transition: none;
+                opacity: 1;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans leading-relaxed selection:bg-brand-mint/50 selection:text-text-main relative">
+
+    <!-- 背景装飾 -->
+    <div class="aurora-bg"></div>
+
+    <header class="fixed w-full top-0 z-50 bg-brand-base/80 backdrop-blur-md border-b border-brand-mint/20 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3 font-serif text-brand-darkGreen tracking-widest text-lg font-medium opacity-90 hover:opacity-100 transition-opacity">
+                <!-- ヘッダー用スモールロゴ -->
+                <div class="relative w-8 h-8 rounded-full overflow-hidden border border-brand-gold/30">
+                    <img src="S__92045338.jpg" alt="Ruban Logo" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                </div>
+                Ruban
+            </a>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#concept" class="text-sm tracking-widest text-text-light hover:text-brand-purple transition-colors">Concept</a>
+                <a href="#about" class="text-sm tracking-widest text-text-light hover:text-brand-purple transition-colors">Healing</a>
+                <a href="#menu" class="text-sm tracking-widest text-text-light hover:text-brand-purple transition-colors">Menu</a>
+                <a href="#profile" class="text-sm tracking-widest text-text-light hover:text-brand-purple transition-colors">Profile</a>
+                <a href="#schedule" class="text-sm tracking-widest text-text-light hover:text-brand-purple transition-colors">Schedule</a>
+            </nav>
+            <a href="#schedule" class="hidden md:inline-block px-6 py-2.5 text-xs tracking-widest text-brand-gold border border-brand-gold/50 rounded-full hover:bg-brand-purple hover:border-brand-purple hover:text-brand-darkGreen transition-all duration-300">
+                ご予約
+            </a>
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-text-main focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <!-- 65%の位置までミント色をキープし、その後ゆっくり白へグラデーション -->
+    <section class="relative min-h-screen flex items-center justify-center pt-20 px-6 bg-gradient-to-b from-brand-mint from-[65%] to-brand-base overflow-hidden z-10">
+        <!-- FV用のさりげない光の装飾 -->
+        <div class="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent pointer-events-none"></div>
+
+        <div class="text-center w-full max-w-4xl mx-auto z-20 flex flex-col items-center">
+            
+            <!-- メインビジュアル（いただいた画像を大きく配置） -->
+            <div class="w-full px-4 md:px-12 mb-12 reveal">
+                <!-- 実際の画像（角を少し丸め、ほんのり影をつけて馴染ませる） -->
+                <img src="S__92045338.jpg" alt="Ruban AROMA & CRYSTAL HEALING" class="w-full h-auto object-contain rounded-2xl shadow-[0_10px_40px_rgba(27,59,54,0.08)] mix-blend-multiply bg-blend-multiply" onerror="this.style.display='none';">
+                
+                <!-- プレビュー等で画像がない場合のフォールバックテキスト -->
+                <div class="hidden">
+                    <h1 class="font-serif text-3xl text-brand-darkGreen">Ruban</h1>
+                </div>
+            </div>
+            
+            <h2 class="font-serif text-xl md:text-3xl text-brand-darkGreen leading-loose md:leading-loose tracking-widest mb-8 reveal delay-100">
+                石の静けさと、香りの導き。<br>
+                本来のあなたへ還る場所。
+            </h2>
+            <p class="text-brand-darkGreen/60 text-xs md:text-sm tracking-[0.2em] uppercase reveal delay-200">
+                Crystal & Aroma Healing Salon
+            </p>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-16 left-1/2 transform -translate-x-1/2 flex flex-col items-center reveal delay-300 z-20">
+            <span class="text-[10px] tracking-widest text-brand-darkGreen mb-2 uppercase">Scroll</span>
+            <div class="w-[1px] h-12 bg-gradient-to-b from-brand-darkGreen/40 to-transparent"></div>
+        </div>
+    </section>
+
+    <!-- Concept Section -->
+    <section id="concept" class="py-32 px-6 relative z-10 bg-brand-base">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="font-serif text-3xl md:text-4xl text-brand-gold mb-12 reveal">Crystal & Aroma Healing</h2>
+            <div class="space-y-8 text-base md:text-lg leading-loose tracking-wider reveal delay-100">
+                <p>
+                    香りの響きと、天然石のエネルギー。<br>
+                    二つが重なり合うことで、深いリラクゼーションへと導きます。
+                </p>
+                <p>
+                    無意識が求める香りに身を委ね、エネルギーの滞りをやさしくほどく。<br>
+                    内側から満たされる、あなただけの癒しの時間をお過ごしください。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Healing Section -->
+    <section id="about" class="py-24 px-6 bg-brand-mint/10 backdrop-blur-sm border-y border-brand-mint/20 relative overflow-hidden">
+        <div class="max-w-4xl mx-auto relative z-10">
+            <div class="grid md:grid-cols-2 gap-16 md:gap-24 items-start">
+                
+                <!-- 石について -->
+                <div class="reveal text-center md:text-left">
+                    <!-- アクセントイラスト（SVG） -->
+                    <div class="mb-8 flex justify-center md:justify-start text-brand-gold opacity-80">
+                        <svg class="w-16 h-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                            <path d="M12 2L5 9L12 22L19 9L12 2Z" stroke-linejoin="round"/>
+                            <path d="M5 9H19" stroke-linejoin="round"/>
+                            <path d="M12 2V22" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <span class="text-brand-mint font-medium text-sm tracking-widest uppercase mb-4 block">Stone & Healing</span>
+                    <h3 class="font-serif text-2xl md:text-3xl mb-8 text-brand-darkGreen">石とヒーリング</h3>
+                    <p class="leading-loose mb-6 text-text-main">
+                        地球が長い時間をかけて生み出した、エネルギーの結晶。<br>
+                        それぞれの石が持つ固有の響きは、私たちの内側にある“本来のリズム”と共鳴し、自然な変化をもたらします。
+                    </p>
+                    <ul class="space-y-3 mb-8 text-text-light text-sm md:text-base inline-block text-left">
+                        <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand-gold mr-4"></span>思考をクリアにする</li>
+                        <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand-gold mr-4"></span>感情を穏やかにする</li>
+                        <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand-gold mr-4"></span>深いリラックスへ導く</li>
+                        <li class="flex items-center"><span class="w-1.5 h-1.5 rounded-full bg-brand-gold mr-4"></span>本来の感覚を取り戻す</li>
+                    </ul>
+                    <p class="leading-loose text-text-light text-sm md:text-base">
+                        言葉を持たない石たちは、今のあなたに必要なサポートを、やさしく、そして確かに届けてくれます。
+                    </p>
+                </div>
+
+                <!-- アロマについて -->
+                <div class="reveal delay-100 text-center md:text-left mt-12 md:mt-0">
+                    <!-- アクセントイラスト（SVG）紫を適用 -->
+                    <div class="mb-8 flex justify-center md:justify-start text-brand-purple opacity-90 hover:scale-105 transition-transform">
+                        <svg class="w-16 h-16 drop-shadow-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                            <path d="M12 2.5C12 2.5 5.5 10 5.5 15.5C5.5 19.09 8.41 22 12 22C15.59 22 18.5 19.09 18.5 15.5C18.5 10 12 2.5 12 2.5Z" stroke-linejoin="round"/>
+                            <path d="M12 11C12 11 14.5 12.5 14.5 15" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <span class="text-brand-purple font-medium text-sm tracking-widest uppercase mb-4 block">Aroma & Vibration</span>
+                    <h3 class="font-serif text-2xl md:text-3xl mb-8 text-brand-darkGreen">アロマと波動</h3>
+                    <p class="leading-loose mb-6 text-text-main">
+                        植物から抽出された精油のひとしずく。<br>
+                        その香りにふれた瞬間、思考を通さずに感覚や感情へとやさしく寄り添います。なぜか惹かれる心地よい香りは、今のあなたに必要なメッセージ。
+                    </p>
+                    <p class="leading-loose mb-6 text-text-light text-sm md:text-base">
+                        深く呼吸をし、心がゆるむ。<br>
+                        アロマは、内側とつながるための“感覚のスイッチ”として、あなたをそっと支えます。
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu & Price Section -->
+    <section id="menu" class="py-32 px-6 bg-brand-base">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-20 reveal">
+                <span class="text-brand-gold text-sm tracking-widest uppercase block mb-2">Healing & Craft</span>
+                <h2 class="font-serif text-3xl md:text-4xl text-brand-darkGreen">Menu</h2>
+            </div>
+
+            <!-- カードの高さを揃え、左右に綺麗に配置 -->
+            <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-stretch">
+                <!-- Menu Card 1 -->
+                <div class="bg-white/80 backdrop-blur-sm p-10 rounded-3xl shadow-sm border border-brand-mint/30 reveal hover:-translate-y-1 transition-all duration-500 hover:shadow-md hover:border-brand-purple/50 flex flex-col h-full group">
+                    <h3 class="font-serif text-xl mb-2 text-brand-darkGreen">クリスタルアロマヒーリング</h3>
+                    <div class="flex items-end gap-4 mb-6 pb-6 border-b border-brand-mint/20 group-hover:border-brand-purple/30 transition-colors">
+                        <span class="text-text-light text-sm">60分</span>
+                        <span class="text-xl font-medium text-brand-darkGreen">5,000円</span>
+                    </div>
+                    <p class="text-text-main text-sm leading-relaxed mb-8 flex-grow">
+                        香りの波動と天然石のエネルギーで、乱れた周波数を本来の状態へと整える、当サロンのシグネチャーメニューです。
+                    </p>
+                    <div class="mt-auto">
+                        <a href="#schedule" class="block w-full text-center py-3 text-sm tracking-widest text-brand-darkGreen border border-brand-darkGreen/30 rounded-full hover:bg-brand-purple hover:border-brand-purple hover:text-brand-darkGreen transition-colors">
+                            ご予約はこちら
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Menu Card 2 -->
+                <div class="bg-gradient-to-br from-brand-mint/10 to-brand-purple/10 backdrop-blur-sm p-10 rounded-3xl shadow-sm border border-brand-mint/30 reveal delay-100 hover:-translate-y-1 transition-all duration-500 hover:shadow-md hover:border-brand-purple/50 relative overflow-hidden flex flex-col h-full group">
+                    <!-- Optionバッジを紫で目立たせる -->
+                    <div class="absolute top-0 right-0 bg-brand-purple text-brand-darkGreen text-xs px-5 py-1.5 tracking-widest rounded-bl-xl font-medium">Option</div>
+                    <h3 class="font-serif text-xl mb-2 text-brand-darkGreen">アロマタッチ</h3>
+                    <div class="flex items-end gap-4 mb-6 pb-6 border-b border-brand-mint/20 group-hover:border-brand-purple/30 transition-colors">
+                        <span class="text-text-light text-sm">40分</span>
+                        <span class="text-xl font-medium text-brand-darkGreen">+3,000円</span>
+                    </div>
+                    <p class="text-text-main text-sm leading-relaxed mb-8 flex-grow">
+                        クリスタルヒーリングに組み合わせることで、より深いリラクゼーションと身体の巡りを促すオプションメニューです。
+                    </p>
+                    <div class="mt-auto">
+                        <a href="#schedule" class="block w-full text-center py-3 text-sm tracking-widest text-brand-darkGreen border border-brand-darkGreen/30 rounded-full hover:bg-brand-purple hover:border-brand-purple hover:text-brand-darkGreen transition-colors">
+                            セットで予約する
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Craft Menu -->
+            <div class="mt-12 relative overflow-hidden bg-white/80 backdrop-blur-sm p-10 rounded-3xl border border-brand-mint/30 reveal delay-200 group hover:border-brand-purple/40 transition-colors duration-500">
+                <!-- 背景の装飾イラスト（ホバー時に紫に変化） -->
+                <svg class="absolute -right-10 -bottom-10 w-48 h-48 text-brand-mint/20 group-hover:text-brand-purple/30 transition-colors duration-500 pointer-events-none" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2L14.4 9.6L22 12L14.4 14.4L12 22L9.6 14.4L2 12L9.6 9.6L12 2Z"/>
+                </svg>
+                
+                <div class="md:flex justify-between items-center relative z-10">
+                    <div class="mb-6 md:mb-0">
+                        <h3 class="font-serif text-xl mb-2 text-brand-darkGreen">クラフト作り体験</h3>
+                        <p class="text-text-light text-sm leading-relaxed">
+                            クリスタル、数珠、キャンドルなど。あなただけのエネルギーを込めたアイテムを制作するお時間です。<br>
+                            詳細な内容や料金はお問い合わせください。
+                        </p>
+                    </div>
+                    <a href="#schedule" class="whitespace-nowrap inline-block px-8 py-3 text-sm tracking-widest bg-brand-base text-brand-darkGreen border border-brand-mint/50 rounded-full shadow-sm hover:bg-brand-purple hover:border-brand-purple transition-all">
+                        詳細・お問い合わせ
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile Section -->
+    <section id="profile" class="py-24 px-6 bg-brand-mint/10 relative overflow-hidden border-y border-brand-mint/20">
+        <!-- 背景の透かし月 -->
+        <div class="absolute w-[600px] h-[600px] rounded-full border border-brand-gold/10 -right-[200px] top-[10%] pointer-events-none z-[-1]"></div>
+        
+        <div class="max-w-3xl mx-auto bg-white/50 backdrop-blur-sm border border-white p-8 md:p-12 rounded-3xl reveal">
+            <!-- さりげないプロフィールのレイアウト -->
+            <div class="flex items-center gap-6 mb-8 border-b border-brand-mint/20 pb-8">
+                <!-- 写真をアイコンサイズに変更 -->
+                <div class="relative w-20 h-20 flex-shrink-0">
+                    <div class="absolute inset-0 rounded-full border border-brand-gold flex items-center justify-center bg-brand-base text-brand-mint text-xs">Photo</div>
+                    <!-- REPLACE: ご自身のプロフィール画像 -->
+                    <img src="S__92045338.jpg" alt="Therapist Profile" class="absolute inset-0 w-full h-full object-cover rounded-full z-10 shadow-sm border border-brand-mint/30 mix-blend-multiply" onerror="this.style.opacity='0';">
+                </div>
+                <div>
+                    <span class="text-brand-purple text-xs tracking-widest uppercase mb-1 block font-medium">Therapist</span>
+                    <h2 class="font-serif text-2xl text-brand-darkGreen">ご挨拶</h2>
+                </div>
+            </div>
+            
+            <div class="space-y-6 text-sm md:text-base leading-loose text-text-light">
+                <p>
+                    はじめまして。Rubanでお待ちしております。（※ここにお名前）です。
+                </p>
+                <p>
+                    日々の忙しさの中で、ふと立ち止まり、自分の内側とつながる時間。そんな余白のような場所を作りたくて、このサロンをオープンしました。
+                </p>
+                <p>
+                    石と香りが持つ自然の力をお借りして、あなたが本来持っている輝きや、穏やかなリズムを取り戻すお手伝いができれば幸いです。どうぞ、肩の力を抜いていらしてくださいね。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schedule & Information Section -->
+    <section id="schedule" class="py-32 px-6 bg-brand-base">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="mb-16 reveal">
+                <span class="text-brand-gold text-sm tracking-widest uppercase block mb-2">Reservation</span>
+                <h2 class="font-serif text-3xl md:text-4xl">ご予約・スケジュール</h2>
+                <p class="mt-6 text-text-light text-sm">
+                    空き状況のご確認、ご予約・お問い合わせは公式LINEより承っております。
+                </p>
+            </div>
+
+            <!-- Schedule Calendar Dummy Area -->
+            <!-- REPLACE: Googleカレンダーの埋め込みコード（iframe）をここに配置します。現在はダミー枠です -->
+            <div class="w-full h-96 bg-gray-50/50 rounded-2xl border border-gray-100 flex items-center justify-center mb-12 reveal delay-100 shadow-inner">
+                <p class="text-text-light/50 text-sm tracking-widest">Google Calendar Area</p>
+            </div>
+
+            <!-- Reserve Button -->
+            <div class="reveal delay-200 mb-24">
+                <!-- REPLACE: LINE公式アカウントなどの予約URL -->
+                <a href="#" class="inline-flex items-center justify-center px-10 py-4 bg-brand-mint/40 hover:bg-brand-purple text-brand-darkGreen rounded-full tracking-widest transition-colors duration-300 shadow-sm hover:shadow">
+                    <svg class="w-5 h-5 mr-3 text-[#06C755]" fill="currentColor" viewBox="0 0 24 24"><path d="M23.994 11.53c0-4.996-4.981-9.155-11.554-9.155C5.875 2.375 0 6.534 0 11.53c0 4.475 3.914 8.307 9.426 9.071 1.22.281 1.954.516 2.404.912.287.25.503.743.376 1.487l-.271 1.636c-.053.305-.246 1.189 1.042.646 1.288-.542 6.945-4.093 9.421-6.969 1.1-1.272 1.596-2.583 1.596-3.864z"/></svg>
+                    LINEで予約・お問い合わせ
+                </a>
+            </div>
+
+            <!-- Information Links (Shop / Blog) -->
+            <div class="grid sm:grid-cols-2 gap-6 reveal delay-300">
+                <!-- REPLACE: オンラインショップURL -->
+                <a href="#" class="group relative bg-white/70 backdrop-blur-sm rounded-2xl p-8 flex flex-col items-center justify-center border border-brand-mint/20 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 text-center overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-mint to-brand-purple opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <svg class="w-10 h-10 text-brand-gold mb-4 opacity-80 group-hover:scale-110 group-hover:text-brand-purple transition-all duration-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke-linejoin="round"/>
+                        <path d="M18 4l1 2 2 1-2 1-1 2-1-2-2-1 2-1 1-2z" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="block font-serif text-xl mb-1 text-brand-darkGreen transition-colors">Online Shop</span>
+                    <span class="text-xs tracking-widest text-text-light uppercase mt-2">厳選アイテム</span>
+                </a>
+                
+                <!-- REPLACE: ブログURL -->
+                <a href="#" class="group relative bg-white/70 backdrop-blur-sm rounded-2xl p-8 flex flex-col items-center justify-center border border-brand-mint/20 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 text-center overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-purple to-brand-mint opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <svg class="w-10 h-10 text-brand-gold mb-4 opacity-80 group-hover:scale-110 group-hover:text-brand-purple transition-all duration-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                        <path d="M2 22c5-2 10-2 15-2s5-5 5-10c0-5-5-5-10-5C6 5 2 12 2 22z" stroke-linejoin="round"/>
+                        <path d="M2 22c5-5 10-10 15-15" stroke-linecap="round"/>
+                    </svg>
+                    <span class="block font-serif text-xl mb-1 text-brand-darkGreen transition-colors">Journal / Blog</span>
+                    <span class="text-xs tracking-widest text-text-light uppercase mt-2">日々のこと</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-mint/20 pt-20 pb-10 px-6 border-t border-brand-mint/30 text-center">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="font-serif text-2xl text-brand-gold mb-6 tracking-widest">Ruban</h2>
+            <p class="text-sm text-text-light tracking-widest mb-12">Crystal & Aroma Healing</p>
+            
+            <div class="flex justify-center space-x-8 mb-16">
+                <!-- REPLACE: Instagram URL -->
+                <a href="#" class="text-text-light hover:text-brand-purple transition-colors">
+                    <span class="text-sm tracking-widest uppercase">Instagram</span>
+                </a>
+            </div>
+            
+            <p class="text-[10px] text-text-light/50 tracking-widest uppercase">
+                &copy; 2026 Ruban. All Rights Reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- スクロールアニメーション用スクリプト -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const revealElements = document.querySelectorAll('.reveal');
+            revealElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
