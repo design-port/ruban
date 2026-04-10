@@ -149,8 +149,8 @@
                 </div>
             </div>
             
-            <!-- 余白を狭くし、1文字分右にずらして視覚的な中央を調整 -->
-            <h2 class="font-serif text-xl md:text-3xl text-brand-darkGreen leading-loose md:leading-loose tracking-widest mb-4 reveal delay-100 translate-x-[1em]">
+            <!-- 余白を狭くし、さらに右にずらして視覚的な中央を調整 (1.5em) -->
+            <h2 class="font-serif text-xl md:text-3xl text-brand-darkGreen leading-loose md:leading-loose tracking-widest mb-4 reveal delay-100 translate-x-[1.5em]">
                 石の静けさと、香りの導き。<br>
                 本来のあなたへ還る場所。
             </h2>
@@ -198,13 +198,12 @@
                 
                 <!-- 石について -->
                 <div class="reveal text-center md:text-left">
-                    <!-- アクセントイラストとサブタイトルをグループ化し中央揃え・隙間を狭く調整 -->
-                    <div class="inline-flex flex-col items-center mb-6">
-                        <div class="mb-2 opacity-80">
-                            <img src="https://raw.githubusercontent.com/design-port/ruban/main/assets/crystal.webp" alt="Crystal Icon" class="w-64 h-64 object-contain">
-                        </div>
-                        <span class="text-brand-mint font-medium text-sm tracking-widest uppercase block">Stone & Healing</span>
+                    <!-- 画像をテキストの中央に寄せるため左にネガティブマージン、位置を少し下げる -->
+                    <div class="opacity-80 flex justify-center md:justify-start md:-ml-16 mt-6 -mb-4">
+                        <img src="https://raw.githubusercontent.com/design-port/ruban/main/assets/crystal.webp" alt="Crystal Icon" class="w-64 h-64 object-contain">
                     </div>
+                    <!-- 英字と日本語を左揃えに -->
+                    <span class="text-brand-mint font-medium text-sm tracking-widest uppercase block mb-1">Stone & Healing</span>
                     <h3 class="font-serif text-2xl md:text-3xl mb-8 text-brand-darkGreen">石とヒーリング</h3>
                     <p class="leading-loose mb-6 text-text-main">
                         地球が長い時間をかけて生み出した、エネルギーの結晶。<br>
@@ -223,13 +222,12 @@
 
                 <!-- アロマについて -->
                 <div class="reveal delay-100 text-center md:text-left mt-12 md:mt-0">
-                    <!-- アクセントイラストとサブタイトルをグループ化し中央揃え・隙間を狭く調整 -->
-                    <div class="inline-flex flex-col items-center mb-6 hover:scale-105 transition-transform">
-                        <div class="mb-2 opacity-90">
-                            <img src="https://raw.githubusercontent.com/design-port/ruban/main/assets/aroma.webp" alt="Aroma Icon" class="w-64 h-64 object-contain drop-shadow-sm">
-                        </div>
-                        <span class="text-brand-purple font-medium text-sm tracking-widest uppercase block">Aroma & Vibration</span>
+                    <!-- 画像をテキストの中央に寄せるため左にネガティブマージン、位置を少し下げる -->
+                    <div class="opacity-90 flex justify-center md:justify-start md:-ml-16 mt-6 -mb-4 hover:scale-105 transition-transform">
+                        <img src="https://raw.githubusercontent.com/design-port/ruban/main/assets/aroma.webp" alt="Aroma Icon" class="w-64 h-64 object-contain drop-shadow-sm">
                     </div>
+                    <!-- 英字と日本語を左揃えに -->
+                    <span class="text-brand-purple font-medium text-sm tracking-widest uppercase block mb-1">Aroma & Vibration</span>
                     <h3 class="font-serif text-2xl md:text-3xl mb-8 text-brand-darkGreen">アロマと波動</h3>
                     <p class="leading-loose mb-6 text-text-main">
                         植物から抽出された精油のひとしずく。<br>
