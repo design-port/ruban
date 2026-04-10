@@ -131,8 +131,8 @@
     </header>
 
     <!-- Hero Section -->
-    <!-- 65%の位置までミント色をキープし、その後ゆっくり白へグラデーション。テキスト被り防止のため pb-24 を追加 -->
-    <section class="relative min-h-screen flex items-center justify-center pt-20 pb-24 px-6 bg-gradient-to-b from-brand-mint from-[65%] to-brand-base overflow-hidden z-10">
+    <!-- 65%の位置までミント色をキープし、その後ゆっくり白へグラデーション。 -->
+    <section class="relative min-h-screen flex items-center justify-center pt-20 px-6 bg-gradient-to-b from-brand-mint from-[65%] to-brand-base overflow-hidden z-10">
         <!-- FV用のさりげない光の装飾 -->
         <div class="absolute inset-0 bg-gradient-to-b from-white/10 to-transparent pointer-events-none"></div>
 
@@ -157,13 +157,6 @@
             <p class="text-brand-darkGreen/60 text-xs md:text-sm tracking-[0.2em] uppercase reveal delay-200">
                 Crystal & Aroma Healing Salon
             </p>
-        </div>
-        
-        <!-- Scroll indicator -->
-        <!-- idを追加し、位置を少し下げ（bottom-8）、フェードアニメーションを設定 -->
-        <div id="scroll-indicator" class="absolute bottom-8 md:bottom-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center reveal delay-300 z-20 transition-opacity duration-500">
-            <span class="text-[10px] tracking-widest text-brand-darkGreen mb-2 uppercase">Scroll</span>
-            <div class="w-[1px] h-12 bg-gradient-to-b from-brand-darkGreen/40 to-transparent"></div>
         </div>
     </section>
 
@@ -439,20 +432,6 @@
 
             const revealElements = document.querySelectorAll('.reveal');
             revealElements.forEach(el => observer.observe(el));
-
-            // スクロールインジケーターの制御（スクロール時にフェードアウト）
-            const scrollIndicator = document.getElementById('scroll-indicator');
-            if (scrollIndicator) {
-                window.addEventListener('scroll', () => {
-                    if (window.scrollY > 50) {
-                        scrollIndicator.style.opacity = '0';
-                        scrollIndicator.style.pointerEvents = 'none';
-                    } else {
-                        scrollIndicator.style.opacity = '1';
-                        scrollIndicator.style.pointerEvents = 'auto';
-                    }
-                }, { passive: true });
-            }
         });
     </script>
 </body>
